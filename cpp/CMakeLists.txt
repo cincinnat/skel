@@ -6,7 +6,7 @@ if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Debug")
 endif()
 
-find_package(Boost 1.67 REQUIRED COMPONENTS program_options)
+find_package(Boost REQUIRED COMPONENTS program_options)
 
 add_executable(skel main.cpp)
 target_link_libraries(skel Boost::program_options)
