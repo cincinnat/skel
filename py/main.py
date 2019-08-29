@@ -1,8 +1,8 @@
 #! /usr/bin/python3
 
-import sys
 import argparse
 import signal
+import sys
 
 
 def main(args):
