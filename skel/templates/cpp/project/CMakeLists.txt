@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.11)
-project(skel)
+cmake_minimum_required(VERSION 3.16)
+project({{project}})
 
 if (NOT CMAKE_BUILD_TYPE)
     message(STATUS "Setting build type to Debug")
@@ -11,5 +11,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Boost REQUIRED COMPONENTS program_options)
 
-add_executable(skel main.cpp)
-target_link_libraries(skel Boost::program_options)
+add_executable({{project}} main.cpp)
+target_link_libraries({{project}} Boost::program_options)

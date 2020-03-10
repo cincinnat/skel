@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#! /bin/env python3
 
 import argparse
 import signal
@@ -13,10 +13,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='description',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    args = parser.parse_args()
+    parsed_args = parser.parse_args()
 
     try:
-        main(args)
+        main(parsed_args)
     except BrokenPipeError:
         sys.exit(128 + signal.SIGPIPE)
     except KeyboardInterrupt:
