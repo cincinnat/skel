@@ -4,28 +4,32 @@ from . import file_utils
 
 _templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
 
-
-def gen_cpp_project(path):
-    template = os.path.join(_templates_dir, 'cpp', 'project')
+def _gen_project(lang, path):
+    template = os.path.join(_templates_dir, lang, 'project')
 
     os.mkdir(path)
     name = os.path.basename(path)
     file_utils.copy(template, path, {'project': name})
 
 
-def gen_cpp_module(path):
-    template = os.path.join(_templates_dir, 'cpp', 'module')
+def _simple_gen(lang, target, path):
+    template = os.path.join(_templates_dir, lang, target)
 
     dirname, name = os.path.split(path)
-    file_utils.copy(template, dirname, {'module': name})
+    file_utils.copy(template, dirname, {target: name})
+
+
+def gen_cpp_project(path):
+    _gen_project('cpp', path)
+
+
+def gen_cpp_module(path):
+    _simple_gen('cpp', 'module', path)
 
 
 def gen_py_project(path):
-    raise NotImplementedError('gen_py_module')
+    _gen_project('py', path)
 
 
 def gen_py_script(path):
-    template = os.path.join(_templates_dir, 'py', 'script')
-
-    dirname, name = os.path.split(path)
-    file_utils.copy(template, dirname, {'script': name})
+    _simple_gen('py', 'script', path)

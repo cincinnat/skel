@@ -28,6 +28,17 @@ def create_dir(root, entries):
                 pass
 
 
+def recurcive_listdir(path):
+    def listdir(root):
+        for item in os.listdir(root):
+            item = os.path.join(root, item)
+            yield os.path.relpath(item, path)
+            if os.path.isdir(item):
+                yield from listdir(item)
+
+    yield from listdir(path)
+
+
 def test_get_target_fname():
     assert get_target_fname('foo', {}) == 'foo'
     assert get_target_fname('{{foo}}', {'foo': 'bar'}) == 'bar'
@@ -125,22 +136,26 @@ def test_copy_filename_templates(tmpdir):
         '_hidden',
         '__not_hidden',
         '{{name}}.py',
+        '{{dirname}}/',
+        '{{dirname}}/__init__.py',
     ]
     in_dir = os.path.join(tmpdir, 'in')
     create_dir(in_dir, sources)
 
-    context = dict(name='main')
+    context = dict(name='main', dirname='proj')
 
     expected = [
         '.hidden',
         '__not_hidden',
         'main.py',
+        'proj',
+        'proj/__init__.py',
     ]
 
     out_dir = os.path.join(tmpdir, 'out')
     os.mkdir(out_dir)
     copy(in_dir, out_dir, context)
-    targets = os.listdir(out_dir)
+    targets = recurcive_listdir(out_dir)
 
     assert sorted(targets) == sorted(expected)
 

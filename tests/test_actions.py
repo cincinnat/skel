@@ -24,3 +24,11 @@ def test_gen_py_module(tmpdir):
     gen_py_script(path)
 
     assert os.path.exists(path + '.py')
+
+
+def test_gen_py_project(tmpdir):
+    path = os.path.join(tmpdir, 'proj')
+    gen_py_project(path)
+
+    assert os.path.exists(os.path.join(path, 'setup.py'))
+    assert os.path.exists(os.path.join(path, 'proj'))

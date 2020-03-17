@@ -1,5 +1,4 @@
 import os
-import sys
 from jinja2 import Template
 
 
@@ -7,14 +6,16 @@ def get_target_fname(fname, context):
     ''' Apply template rules to a file name.
     '''
 
-    dirname = os.path.dirname(fname)
-    basename = os.path.basename(fname)
+    path = fname.split('/')
 
-    basename = Template(basename).render(context)
-    if basename.startswith('_') and not basename.startswith('__'):
-        basename = '.' + basename[1:]
+    def apply_template(item):
+        item = Template(item).render(context)
+        if item.startswith('_') and not item.startswith('__'):
+            item = '.' + item[1:]
+        return item
 
-    return os.path.join(dirname, basename)
+    path = map(apply_template, path)
+    return '/'.join(path)
 
 
 def copy_template(source, target, context):
@@ -39,7 +40,6 @@ def list_dir(path):
     Return a generator producing the contents of a directory
     (relative to `path`), excluding any hidden files.
     '''
-
 
     def walk(root):
         with os.scandir(root) as it:
