@@ -34,4 +34,6 @@ def gen_py_project(path):
 
 
 def gen_py_script(path):
+    if path.endswith('.py'):
+        path = path[:-3]
     _simple_gen('py', 'script', path)

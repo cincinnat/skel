@@ -43,6 +43,13 @@ def test_gen_py_script_curdir(tmpdir):
         assert os.path.exists(path + '.py')
 
 
+def test_gen_py_script_trailing_py(tmpdir):
+    path = os.path.join(tmpdir, 'script.py')
+    gen_py_script(path)
+
+    assert os.path.exists(path)
+
+
 def test_gen_py_project(tmpdir):
     path = os.path.join(tmpdir, 'proj')
     gen_py_project(path)
