@@ -16,6 +16,8 @@ def _simple_gen(lang, target, path):
     template = os.path.join(_templates_dir, lang, target)
 
     dirname, name = os.path.split(path)
+    if not dirname:
+        dirname = '.'
     file_utils.copy(template, dirname, {target: name})
 
 
