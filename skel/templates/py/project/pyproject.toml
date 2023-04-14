@@ -1,0 +1,40 @@
+[project]
+name = '{{project}}'
+version = '0.1'
+requires-python = ">=3.10"
+dependencies = []
+
+
+[build-system]
+requires = [
+        'setuptools >= 65.0',
+        'wheel',
+    ]
+
+
+[project.optional-dependencies]
+dev = [
+        'build',
+        'flake8',
+        'mypy',
+    ]
+test = [
+        'pytest',
+    ]
+
+
+[tool.setuptools]
+py-modules = ['{{project}}']
+
+
+[project.scripts]
+
+
+[tool.mypy]
+files = '{{project}}'
+ignore_missing_imports = true
+allow_redefinition = true
+disable_error_code = [
+        'assignment',
+        'var-annotated',
+    ]

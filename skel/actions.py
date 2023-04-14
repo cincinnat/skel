@@ -9,6 +9,7 @@ def _gen_project(lang, path):
 
     os.mkdir(path)
     name = os.path.basename(path)
+    name = name.replace('-', '_')
     file_utils.copy(template, path, {'project': name})
 
 
